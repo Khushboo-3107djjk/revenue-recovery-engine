@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuditRouteImport } from './routes/audit'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as RecoveryRouteImport } from './routes/recovery'
+import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as TransactionsRouteImport } from './routes/transactions'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const RecoveryRoute = RecoveryRouteImport.update({
   path: '/recovery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SimulationRoute = SimulationRouteImport.update({
+  id: '/simulation',
+  path: '/simulation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/audit': typeof AuditRoute
   '/dashboard': typeof DashboardRoute
   '/recovery': typeof RecoveryRoute
+  '/simulation': typeof SimulationRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/audit': typeof AuditRoute
   '/dashboard': typeof DashboardRoute
   '/recovery': typeof RecoveryRoute
+  '/simulation': typeof SimulationRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,34 @@ export interface FileRoutesById {
   '/audit': typeof AuditRoute
   '/dashboard': typeof DashboardRoute
   '/recovery': typeof RecoveryRoute
+  '/simulation': typeof SimulationRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/audit' | '/dashboard' | '/recovery' | '/transactions'
+  fullPaths:
+    | '/'
+    | '/audit'
+    | '/dashboard'
+    | '/recovery'
+    | '/simulation'
+    | '/transactions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/audit' | '/dashboard' | '/recovery' | '/transactions'
-  id: '__root__' | '/' | '/audit' | '/dashboard' | '/recovery' | '/transactions'
+  to:
+    | '/'
+    | '/audit'
+    | '/dashboard'
+    | '/recovery'
+    | '/simulation'
+    | '/transactions'
+  id:
+    | '__root__'
+    | '/'
+    | '/audit'
+    | '/dashboard'
+    | '/recovery'
+    | '/simulation'
+    | '/transactions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +104,7 @@ export interface RootRouteChildren {
   AuditRoute: typeof AuditRoute
   DashboardRoute: typeof DashboardRoute
   RecoveryRoute: typeof RecoveryRoute
+  SimulationRoute: typeof SimulationRoute
   TransactionsRoute: typeof TransactionsRoute
 }
 
@@ -109,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/simulation': {
+      id: '/simulation'
+      path: '/simulation'
+      fullPath: '/simulation'
+      preLoaderRoute: typeof SimulationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/transactions': {
       id: '/transactions'
       path: '/transactions'
@@ -124,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuditRoute: AuditRoute,
   DashboardRoute: DashboardRoute,
   RecoveryRoute: RecoveryRoute,
+  SimulationRoute: SimulationRoute,
   TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport
